@@ -1,0 +1,2740 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pvlib with PySAM financial model example &#8212; 2024 PVSC Python Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tutorial E - PySAM Financial Model';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="Tutorial%200%20-%20Overview.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/tutorial_banner.PNG" class="logo__image only-light" alt="2024 PVSC Python Tutorial - Home"/>
+    <img src="_static/tutorial_banner.PNG" class="logo__image only-dark pst-js-only" alt="2024 PVSC Python Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Tutorial%200%20-%20Overview.html">
+                    Welcome to Python, Jupyter, and Google Collab
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%201%20-%20TMY%20Weather%20Data.html">Tutorial 1 - Weather Data: Accesing it, understanding it, visualizing it!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.html">Tutorial 2 - POA Irradiance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PBL_Case%201.html">2024 PVSC - Problem Based Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20A%20-%20Model%20a%20Module%27s%20Performance.html">Tutorial A - PV Module Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20B%20-%20Array%20Power.html">Tutorial B - Array Power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20C%20-%20Single%20Diode%20Model.html">Tutorial C - Single Diode Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20D%20-%20pvfree.html">Tutorial D - pvfree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PBL_Case%202.html">2024 PVSC - Problem Based Learning 2</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial E - PySAM Financial Model.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PV-Tutorials/2024_PVSC" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PV-Tutorials/2024_PVSC/issues/new?title=Issue%20on%20page%20%2FTutorial E - PySAM Financial Model.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tutorial E - PySAM Financial Model.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>pvlib with PySAM financial model example</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-pvlib-modelchain-pass-power-and-energy-results-to-sam-financial-models-for-technoeconomic-analysis">Run pvlib modelchain, pass power and energy results to SAM financial models for technoeconomic analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-pvlib">1. Setup pvlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-kw-kwh-results-from-pvlib-modelchain">2. Generate kW, kWh results from pvlib modelchain</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-pysam-relevant-financial-parameters">3. Setup PySAM, relevant financial parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-financial-model">4. Run financial model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-project-cashflows-project-success-metrics">5. Analyze project cashflows, project success metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pvlib-modelchain">PVLib ModelChain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sam-ppa-financial-models">SAM PPA Financial Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-input-to-financial-model">Energy input to Financial Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#costs">Costs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revenue">Revenue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#financing">Financing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incentives">Incentives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pvlib-with-pysam-financial-model-example">
+<h1>pvlib with PySAM financial model example<a class="headerlink" href="#pvlib-with-pysam-financial-model-example" title="Link to this heading">#</a></h1>
+<p><img src="Tutorial_E_data/SAM-logo-horizontal.png"
+     width= "500" />
+<img src="Tutorial_E_data/pvlib_logo_horiz.png"
+     width= "500" /></p>
+<section id="run-pvlib-modelchain-pass-power-and-energy-results-to-sam-financial-models-for-technoeconomic-analysis">
+<h2>Run pvlib modelchain, pass power and energy results to SAM financial models for technoeconomic analysis<a class="headerlink" href="#run-pvlib-modelchain-pass-power-and-energy-results-to-sam-financial-models-for-technoeconomic-analysis" title="Link to this heading">#</a></h2>
+</section>
+<section id="steps">
+<h2>Steps:<a class="headerlink" href="#steps" title="Link to this heading">#</a></h2>
+<section id="setup-pvlib">
+<h3>1. Setup <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/index.html">pvlib</a><a class="headerlink" href="#setup-pvlib" title="Link to this heading">#</a></h3>
+</section>
+<section id="generate-kw-kwh-results-from-pvlib-modelchain">
+<h3>2. Generate kW, kWh results from pvlib modelchain<a class="headerlink" href="#generate-kw-kwh-results-from-pvlib-modelchain" title="Link to this heading">#</a></h3>
+</section>
+<section id="setup-pysam-relevant-financial-parameters">
+<h3>3. Setup <a class="reference external" href="https://nrel-pysam.readthedocs.io/en/main/index.html">PySAM</a>, relevant financial parameters<a class="headerlink" href="#setup-pysam-relevant-financial-parameters" title="Link to this heading">#</a></h3>
+</section>
+<section id="run-financial-model">
+<h3>4. Run financial model<a class="headerlink" href="#run-financial-model" title="Link to this heading">#</a></h3>
+</section>
+<section id="analyze-project-cashflows-project-success-metrics">
+<h3>5. Analyze project cashflows, project success metrics<a class="headerlink" href="#analyze-project-cashflows-project-success-metrics" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pvlib</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#Salt Lake City coordinates and weather data</span>
+<span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">40.7608</span><span class="p">,</span> <span class="o">-</span><span class="mf">111.8910</span><span class="p">,</span> <span class="s1">&#39;Salt Lake City&#39;</span><span class="p">,</span> <span class="mi">1319</span><span class="p">,</span> <span class="s1">&#39;Etc/GMT-7&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+
+
+
+<span class="n">sandia_modules</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">pvsystem</span><span class="o">.</span><span class="n">retrieve_sam</span><span class="p">(</span><span class="s1">&#39;SandiaMod&#39;</span><span class="p">)</span>
+
+<span class="n">sapm_inverters</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">pvsystem</span><span class="o">.</span><span class="n">retrieve_sam</span><span class="p">(</span><span class="s1">&#39;cecinverter&#39;</span><span class="p">)</span>
+
+<span class="n">module</span> <span class="o">=</span> <span class="n">sandia_modules</span><span class="p">[</span><span class="s1">&#39;Canadian_Solar_CS5P_220M___2009_&#39;</span><span class="p">]</span>
+<span class="n">modules_per_string</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">strings_per_inverter</span> <span class="o">=</span> <span class="mi">250</span>
+
+<span class="n">inverter</span> <span class="o">=</span> <span class="n">sapm_inverters</span><span class="p">[</span><span class="s1">&#39;Sungrow_Power_Supply_Co___Ltd___SC1000KU__540V_&#39;</span><span class="p">]</span>
+
+
+<span class="n">temperature_model_parameters</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">temperature</span><span class="o">.</span><span class="n">TEMPERATURE_MODEL_PARAMETERS</span><span class="p">[</span><span class="s1">&#39;sapm&#39;</span><span class="p">][</span><span class="s1">&#39;open_rack_glass_glass&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmys</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">:</span>
+    <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">timezone</span> <span class="o">=</span> <span class="n">location</span>
+    <span class="n">weather</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">iotools</span><span class="o">.</span><span class="n">get_pvgis_tmy</span><span class="p">(</span><span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">weather</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;utc_time&quot;</span>
+    <span class="n">tmys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pvlib-modelchain">
+<h2>PVLib ModelChain<a class="headerlink" href="#pvlib-modelchain" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Run models as different objects</p></li>
+<li><p>More information at <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/user_guide/introtutorial.html">https://pvlib-python.readthedocs.io/en/stable/user_guide/introtutorial.html</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pvlib.pvsystem</span> <span class="kn">import</span> <span class="n">PVSystem</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> <span class="n">FixedMount</span>
+
+<span class="kn">from</span> <span class="nn">pvlib.location</span> <span class="kn">import</span> <span class="n">Location</span>
+
+<span class="kn">from</span> <span class="nn">pvlib.modelchain</span> <span class="kn">import</span> <span class="n">ModelChain</span>
+
+<span class="n">energies</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">location</span><span class="p">,</span> <span class="n">weather</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">tmys</span><span class="p">):</span>
+    <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">timezone</span> <span class="o">=</span> <span class="n">location</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="n">Location</span><span class="p">(</span>
+        <span class="n">latitude</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">altitude</span><span class="o">=</span><span class="n">altitude</span><span class="p">,</span>
+        <span class="n">tz</span><span class="o">=</span><span class="n">timezone</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">mount</span> <span class="o">=</span> <span class="n">FixedMount</span><span class="p">(</span><span class="n">surface_tilt</span><span class="o">=</span><span class="n">latitude</span><span class="p">,</span> <span class="n">surface_azimuth</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span>
+        <span class="n">mount</span><span class="o">=</span><span class="n">mount</span><span class="p">,</span>
+        <span class="n">module_parameters</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+        <span class="n">temperature_model_parameters</span><span class="o">=</span><span class="n">temperature_model_parameters</span><span class="p">,</span>
+        <span class="n">modules_per_string</span><span class="o">=</span><span class="n">modules_per_string</span><span class="p">,</span>
+        <span class="n">strings</span><span class="o">=</span><span class="n">strings_per_inverter</span>
+    <span class="p">)</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">PVSystem</span><span class="p">(</span><span class="n">arrays</span><span class="o">=</span><span class="p">[</span><span class="n">array</span><span class="p">],</span> <span class="n">inverter_parameters</span><span class="o">=</span><span class="n">inverter</span><span class="p">)</span>
+    <span class="n">mc</span> <span class="o">=</span> <span class="n">ModelChain</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+    <span class="n">mc</span><span class="o">.</span><span class="n">run_model</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span>
+    <span class="n">annual_energy</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1">#AC power series</span>
+    <span class="n">energies</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_energy</span>
+
+
+<span class="n">energies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">energies</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energies</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">ac</span><span class="p">)</span>
+
+
+
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8760</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">mc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">ac</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hour of year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (W)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Salt Lake City    2.262303e+06
+dtype: float64
+utc_time
+2016-01-01 00:00:00+00:00      -300.391800
+2016-01-01 01:00:00+00:00      -300.391800
+2016-01-01 02:00:00+00:00      -300.391800
+2016-01-01 03:00:00+00:00      -300.391800
+2016-01-01 04:00:00+00:00      -300.391800
+                                 ...      
+2021-12-31 19:00:00+00:00    757522.036621
+2021-12-31 20:00:00+00:00    819302.834632
+2021-12-31 21:00:00+00:00    674898.047547
+2021-12-31 22:00:00+00:00    417112.003799
+2021-12-31 23:00:00+00:00    163022.404209
+Length: 8760, dtype: float64
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Power (W)&#39;)
+</pre></div>
+</div>
+<img alt="_images/0495e4fd78f4f8346ec6272dcd1fe38a649caef0611e7664d08fe8abc3fcf24b.png" src="_images/0495e4fd78f4f8346ec6272dcd1fe38a649caef0611e7664d08fe8abc3fcf24b.png" />
+</div>
+</div>
+</section>
+<section id="sam-ppa-financial-models">
+<h2>SAM PPA Financial Models<a class="headerlink" href="#sam-ppa-financial-models" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Front of meter, single entity selling generated power at agreed upon Power Purchase Agreement (PPA) price</p></li>
+<li><p>Includes project Capex, Opex, Revenue (PPA), Debt, Incentives (Investment Tax Credit), and Depreciation</p></li>
+<li><p>Setup inputs in desktop tool, export <a class="reference external" href="https://nrel-pysam.readthedocs.io/en/main/getting-started.html#example-1-build-a-model-from-sam">PySAM JSON’s</a>, iterate in PySAM</p>
+<p><img alt="ppa_revenue.png" src="attachment:24ac810a-3ec2-4f60-8946-5f01bebf64f8.png" />
+<img alt="itc.png" src="attachment:51969d1d-10d1-49d8-9528-585ab7337f82.png" /></p>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">PySAM.Singleowner</span> <span class="k">as</span> <span class="nn">so</span> <span class="c1"># import the Single Owner module from PySAM</span>
+<span class="kn">import</span> <span class="nn">PySAM.Cashloan</span> <span class="k">as</span> <span class="nn">co</span> <span class="c1">#Residential/Commercial BTM financial, covered in next section</span>
+
+<span class="c1"># create a new instance of the Singleowner module</span>
+<span class="n">so_model</span> <span class="o">=</span> <span class="n">so</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+
+<span class="c1">#Setup model in SAM, export JSON files with inputs</span>
+<span class="c1">#For more information on PySAM input json&#39;s, see https://nrel-pysam.readthedocs.io/en/main/getting-started.html</span>
+
+<span class="c1">#Alternatively, start with default inputs to financial model (may not be accurate for your case)</span>
+
+<span class="n">so_model</span> <span class="o">=</span> <span class="n">so</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="s2">&quot;FlatPlatePVSingleOwner&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># get the inputs from the JSON file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span> <span class="s1">&#39;Tutorial_E_data/SO_example_singleowner.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">so_inputs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">f</span> <span class="p">)</span>
+
+<span class="c1"># iterate through the input key-value pairs and set the module inputs</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">so_inputs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;number_inputs&#39;</span><span class="p">:</span>
+        <span class="n">so_model</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">json</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">PySAM.Singleowner</span> <span class="k">as</span> <span class="nn">so</span> <span class="c1"># import the Single Owner module from PySAM</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">PySAM.Cashloan</span> <span class="k">as</span> <span class="nn">co</span> <span class="c1">#Residential/Commercial BTM financial, covered in next section</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># create a new instance of the Singleowner module</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;PySAM&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">so_model</span><span class="o">.</span><span class="n">export</span><span class="p">()</span> <span class="c1">#View inputs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Revenue&#39;: {&#39;dispatch_factors_ts&#39;: (0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   1.1,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   ...),
+  &#39;dispatch_sched_weekday&#39;: ((1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0)),
+  &#39;dispatch_sched_weekend&#39;: ((1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0),
+   (1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0)),
+  &#39;dispatch_tod_factors&#39;: (1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
+  &#39;flip_target_percent&#39;: 11.0,
+  &#39;flip_target_year&#39;: 20.0,
+  &#39;ppa_escalation&#39;: 1.0,
+  &#39;ppa_multiplier_model&#39;: 0.0,
+  &#39;ppa_price_input&#39;: (0.043,),
+  &#39;ppa_soln_mode&#39;: 1.0},
+ &#39;FinancialParameters&#39;: {&#39;analysis_period&#39;: 25.0,
+  &#39;construction_financing_cost&#39;: 35244.49152156341,
+  &#39;cost_debt_closing&#39;: 0.0,
+  &#39;cost_debt_fee&#39;: 2.75,
+  &#39;cost_other_financing&#39;: 0.0,
+  &#39;debt_option&#39;: 1.0,
+  &#39;debt_percent&#39;: 60.0,
+  &#39;dscr&#39;: 1.3,
+  &#39;dscr_limit_debt_fraction&#39;: 0.0,
+  &#39;dscr_maximum_debt_fraction&#39;: 100.0,
+  &#39;dscr_reserve_months&#39;: 6.0,
+  &#39;equip1_reserve_cost&#39;: 0.1,
+  &#39;equip1_reserve_freq&#39;: 15.0,
+  &#39;equip2_reserve_cost&#39;: 0.0,
+  &#39;equip2_reserve_freq&#39;: 15.0,
+  &#39;equip3_reserve_cost&#39;: 0.0,
+  &#39;equip3_reserve_freq&#39;: 3.0,
+  &#39;equip_reserve_depr_fed&#39;: 0.0,
+  &#39;equip_reserve_depr_sta&#39;: 0.0,
+  &#39;federal_tax_rate&#39;: (21.0,),
+  &#39;inflation_rate&#39;: 2.5,
+  &#39;insurance_rate&#39;: 0.0,
+  &#39;loan_moratorium&#39;: 0.0,
+  &#39;months_receivables_reserve&#39;: 0.0,
+  &#39;months_working_reserve&#39;: 6.0,
+  &#39;payment_option&#39;: 0.0,
+  &#39;prop_tax_assessed_decline&#39;: 0.0,
+  &#39;prop_tax_cost_assessed_percent&#39;: 100.0,
+  &#39;property_tax_rate&#39;: 0.0,
+  &#39;real_discount_rate&#39;: 6.4,
+  &#39;reserves_interest&#39;: 1.75,
+  &#39;salvage_percentage&#39;: 0.0,
+  &#39;state_tax_rate&#39;: (7.0,),
+  &#39;system_capacity&#39;: 100003.0,
+  &#39;term_int_rate&#39;: 7.0,
+  &#39;term_tenor&#39;: 18.0},
+ &#39;SystemCosts&#39;: {&#39;om_capacity&#39;: (15.0,),
+  &#39;om_capacity_escal&#39;: 0.0,
+  &#39;om_fixed&#39;: (0.0,),
+  &#39;om_fixed_escal&#39;: 0.0,
+  &#39;om_production&#39;: (0.0,),
+  &#39;om_production_escal&#39;: 0.0,
+  &#39;total_installed_cost&#39;: 1342647.2960595584},
+ &#39;LandLease&#39;: {&#39;land_area&#39;: 7.355702940057229,
+  &#39;om_land_lease&#39;: (0.0,),
+  &#39;om_land_lease_escal&#39;: 0.0},
+ &#39;TaxCreditIncentives&#39;: {&#39;itc_fed_amount&#39;: (0.0,),
+  &#39;itc_fed_amount_deprbas_fed&#39;: 1.0,
+  &#39;itc_fed_amount_deprbas_sta&#39;: 1.0,
+  &#39;itc_fed_percent&#39;: (0.0,),
+  &#39;itc_fed_percent_deprbas_fed&#39;: 1.0,
+  &#39;itc_fed_percent_deprbas_sta&#39;: 1.0,
+  &#39;itc_fed_percent_maxvalue&#39;: (1e+38,),
+  &#39;itc_sta_amount&#39;: (0.0,),
+  &#39;itc_sta_amount_deprbas_fed&#39;: 0.0,
+  &#39;itc_sta_amount_deprbas_sta&#39;: 0.0,
+  &#39;itc_sta_percent&#39;: (0.0,),
+  &#39;itc_sta_percent_deprbas_fed&#39;: 0.0,
+  &#39;itc_sta_percent_deprbas_sta&#39;: 0.0,
+  &#39;itc_sta_percent_maxvalue&#39;: (1e+38,),
+  &#39;ptc_fed_amount&#39;: (0.0275,),
+  &#39;ptc_fed_escal&#39;: 2.5,
+  &#39;ptc_fed_term&#39;: 10.0,
+  &#39;ptc_sta_amount&#39;: (0.0,),
+  &#39;ptc_sta_escal&#39;: 0.0,
+  &#39;ptc_sta_term&#39;: 10.0},
+ &#39;Depreciation&#39;: {&#39;depr_alloc_custom_percent&#39;: 0.0,
+  &#39;depr_alloc_macrs_15_percent&#39;: 1.5,
+  &#39;depr_alloc_macrs_5_percent&#39;: 90.0,
+  &#39;depr_alloc_sl_15_percent&#39;: 2.5,
+  &#39;depr_alloc_sl_20_percent&#39;: 3.0,
+  &#39;depr_alloc_sl_39_percent&#39;: 0.0,
+  &#39;depr_alloc_sl_5_percent&#39;: 0.0,
+  &#39;depr_bonus_fed&#39;: 0.0,
+  &#39;depr_bonus_fed_custom&#39;: 0.0,
+  &#39;depr_bonus_fed_macrs_15&#39;: 1.0,
+  &#39;depr_bonus_fed_macrs_5&#39;: 1.0,
+  &#39;depr_bonus_fed_sl_15&#39;: 0.0,
+  &#39;depr_bonus_fed_sl_20&#39;: 0.0,
+  &#39;depr_bonus_fed_sl_39&#39;: 0.0,
+  &#39;depr_bonus_fed_sl_5&#39;: 0.0,
+  &#39;depr_bonus_sta&#39;: 0.0,
+  &#39;depr_bonus_sta_custom&#39;: 0.0,
+  &#39;depr_bonus_sta_macrs_15&#39;: 1.0,
+  &#39;depr_bonus_sta_macrs_5&#39;: 1.0,
+  &#39;depr_bonus_sta_sl_15&#39;: 0.0,
+  &#39;depr_bonus_sta_sl_20&#39;: 0.0,
+  &#39;depr_bonus_sta_sl_39&#39;: 0.0,
+  &#39;depr_bonus_sta_sl_5&#39;: 0.0,
+  &#39;depr_custom_schedule&#39;: (0.0,),
+  &#39;depr_fedbas_method&#39;: 1.0,
+  &#39;depr_itc_fed_custom&#39;: 0.0,
+  &#39;depr_itc_fed_macrs_15&#39;: 0.0,
+  &#39;depr_itc_fed_macrs_5&#39;: 1.0,
+  &#39;depr_itc_fed_sl_15&#39;: 0.0,
+  &#39;depr_itc_fed_sl_20&#39;: 0.0,
+  &#39;depr_itc_fed_sl_39&#39;: 0.0,
+  &#39;depr_itc_fed_sl_5&#39;: 0.0,
+  &#39;depr_itc_sta_custom&#39;: 0.0,
+  &#39;depr_itc_sta_macrs_15&#39;: 0.0,
+  &#39;depr_itc_sta_macrs_5&#39;: 1.0,
+  &#39;depr_itc_sta_sl_15&#39;: 0.0,
+  &#39;depr_itc_sta_sl_20&#39;: 0.0,
+  &#39;depr_itc_sta_sl_39&#39;: 0.0,
+  &#39;depr_itc_sta_sl_5&#39;: 0.0,
+  &#39;depr_stabas_method&#39;: 1.0},
+ &#39;PaymentIncentives&#39;: {&#39;cbi_fed_amount&#39;: 0.0,
+  &#39;cbi_fed_deprbas_fed&#39;: 0.0,
+  &#39;cbi_fed_deprbas_sta&#39;: 0.0,
+  &#39;cbi_fed_maxvalue&#39;: 1e+38,
+  &#39;cbi_fed_tax_fed&#39;: 1.0,
+  &#39;cbi_fed_tax_sta&#39;: 1.0,
+  &#39;cbi_oth_amount&#39;: 0.0,
+  &#39;cbi_oth_deprbas_fed&#39;: 0.0,
+  &#39;cbi_oth_deprbas_sta&#39;: 0.0,
+  &#39;cbi_oth_maxvalue&#39;: 1e+38,
+  &#39;cbi_oth_tax_fed&#39;: 1.0,
+  &#39;cbi_oth_tax_sta&#39;: 1.0,
+  &#39;cbi_sta_amount&#39;: 0.0,
+  &#39;cbi_sta_deprbas_fed&#39;: 0.0,
+  &#39;cbi_sta_deprbas_sta&#39;: 0.0,
+  &#39;cbi_sta_maxvalue&#39;: 1e+38,
+  &#39;cbi_sta_tax_fed&#39;: 1.0,
+  &#39;cbi_sta_tax_sta&#39;: 1.0,
+  &#39;cbi_uti_amount&#39;: 0.0,
+  &#39;cbi_uti_deprbas_fed&#39;: 0.0,
+  &#39;cbi_uti_deprbas_sta&#39;: 0.0,
+  &#39;cbi_uti_maxvalue&#39;: 1e+38,
+  &#39;cbi_uti_tax_fed&#39;: 1.0,
+  &#39;cbi_uti_tax_sta&#39;: 1.0,
+  &#39;ibi_fed_amount&#39;: 0.0,
+  &#39;ibi_fed_amount_deprbas_fed&#39;: 0.0,
+  &#39;ibi_fed_amount_deprbas_sta&#39;: 0.0,
+  &#39;ibi_fed_amount_tax_fed&#39;: 1.0,
+  &#39;ibi_fed_amount_tax_sta&#39;: 1.0,
+  &#39;ibi_fed_percent&#39;: 0.0,
+  &#39;ibi_fed_percent_deprbas_fed&#39;: 0.0,
+  &#39;ibi_fed_percent_deprbas_sta&#39;: 0.0,
+  &#39;ibi_fed_percent_maxvalue&#39;: 1e+38,
+  &#39;ibi_fed_percent_tax_fed&#39;: 1.0,
+  &#39;ibi_fed_percent_tax_sta&#39;: 1.0,
+  &#39;ibi_oth_amount&#39;: 0.0,
+  &#39;ibi_oth_amount_deprbas_fed&#39;: 0.0,
+  &#39;ibi_oth_amount_deprbas_sta&#39;: 0.0,
+  &#39;ibi_oth_amount_tax_fed&#39;: 1.0,
+  &#39;ibi_oth_amount_tax_sta&#39;: 1.0,
+  &#39;ibi_oth_percent&#39;: 0.0,
+  &#39;ibi_oth_percent_deprbas_fed&#39;: 0.0,
+  &#39;ibi_oth_percent_deprbas_sta&#39;: 0.0,
+  &#39;ibi_oth_percent_maxvalue&#39;: 1e+38,
+  &#39;ibi_oth_percent_tax_fed&#39;: 1.0,
+  &#39;ibi_oth_percent_tax_sta&#39;: 1.0,
+  &#39;ibi_sta_amount&#39;: 0.0,
+  &#39;ibi_sta_amount_deprbas_fed&#39;: 0.0,
+  &#39;ibi_sta_amount_deprbas_sta&#39;: 0.0,
+  &#39;ibi_sta_amount_tax_fed&#39;: 1.0,
+  &#39;ibi_sta_amount_tax_sta&#39;: 1.0,
+  &#39;ibi_sta_percent&#39;: 0.0,
+  &#39;ibi_sta_percent_deprbas_fed&#39;: 0.0,
+  &#39;ibi_sta_percent_deprbas_sta&#39;: 0.0,
+  &#39;ibi_sta_percent_maxvalue&#39;: 1e+38,
+  &#39;ibi_sta_percent_tax_fed&#39;: 1.0,
+  &#39;ibi_sta_percent_tax_sta&#39;: 1.0,
+  &#39;ibi_uti_amount&#39;: 0.0,
+  &#39;ibi_uti_amount_deprbas_fed&#39;: 0.0,
+  &#39;ibi_uti_amount_deprbas_sta&#39;: 0.0,
+  &#39;ibi_uti_amount_tax_fed&#39;: 1.0,
+  &#39;ibi_uti_amount_tax_sta&#39;: 1.0,
+  &#39;ibi_uti_percent&#39;: 0.0,
+  &#39;ibi_uti_percent_deprbas_fed&#39;: 0.0,
+  &#39;ibi_uti_percent_deprbas_sta&#39;: 0.0,
+  &#39;ibi_uti_percent_maxvalue&#39;: 1e+38,
+  &#39;ibi_uti_percent_tax_fed&#39;: 1.0,
+  &#39;ibi_uti_percent_tax_sta&#39;: 1.0,
+  &#39;pbi_fed_amount&#39;: (0.0,),
+  &#39;pbi_fed_escal&#39;: 0.0,
+  &#39;pbi_fed_for_ds&#39;: 0.0,
+  &#39;pbi_fed_tax_fed&#39;: 1.0,
+  &#39;pbi_fed_tax_sta&#39;: 1.0,
+  &#39;pbi_fed_term&#39;: 10.0,
+  &#39;pbi_oth_amount&#39;: (0.0,),
+  &#39;pbi_oth_escal&#39;: 0.0,
+  &#39;pbi_oth_for_ds&#39;: 0.0,
+  &#39;pbi_oth_tax_fed&#39;: 1.0,
+  &#39;pbi_oth_tax_sta&#39;: 1.0,
+  &#39;pbi_oth_term&#39;: 10.0,
+  &#39;pbi_sta_amount&#39;: (0.0,),
+  &#39;pbi_sta_escal&#39;: 0.0,
+  &#39;pbi_sta_for_ds&#39;: 0.0,
+  &#39;pbi_sta_tax_fed&#39;: 1.0,
+  &#39;pbi_sta_tax_sta&#39;: 1.0,
+  &#39;pbi_sta_term&#39;: 10.0,
+  &#39;pbi_uti_amount&#39;: (0.0,),
+  &#39;pbi_uti_escal&#39;: 0.0,
+  &#39;pbi_uti_for_ds&#39;: 0.0,
+  &#39;pbi_uti_tax_fed&#39;: 1.0,
+  &#39;pbi_uti_tax_sta&#39;: 1.0,
+  &#39;pbi_uti_term&#39;: 10.0},
+ &#39;BatterySystem&#39;: {&#39;en_batt&#39;: 0.0, &#39;en_wave_batt&#39;: 0.0},
+ &#39;ElectricityRates&#39;: {&#39;en_electricity_rates&#39;: 0.0, &#39;rate_escalation&#39;: (0.0,)},
+ &#39;SystemOutput&#39;: {&#39;degradation&#39;: (0.0,),
+  &#39;gen&#39;: (0.0,),
+  &#39;system_capacity&#39;: 100003.0},
+ &#39;UtilityBill&#39;: {},
+ &#39;Lifetime&#39;: {&#39;system_use_lifetime_output&#39;: 1.0},
+ &#39;FuelCell&#39;: {},
+ &#39;CapacityPayments&#39;: {&#39;cp_battery_nameplate&#39;: 0.0,
+  &#39;cp_capacity_credit_percent&#39;: (0.0,),
+  &#39;cp_capacity_payment_amount&#39;: (0.0,),
+  &#39;cp_capacity_payment_esc&#39;: 0.0,
+  &#39;cp_capacity_payment_type&#39;: 0.0,
+  &#39;cp_system_nameplate&#39;: 1.1535315638278083},
+ &#39;GridLimits&#39;: {&#39;grid_curtailment_price&#39;: (0.0,),
+  &#39;grid_curtailment_price_esc&#39;: 0.0},
+ &#39;LCOS&#39;: {&#39;batt_salvage_percentage&#39;: 0.0},
+ &#39;ChargesByMonth&#39;: {},
+ &#39;HybridFin&#39;: {},
+ &#39;Monthly&#39;: {},
+ &#39;Outputs&#39;: {&#39;flip_target_year&#39;: 20.0, &#39;ppa_escalation&#39;: 1.0}}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="energy-input-to-financial-model">
+<h2>Energy input to Financial Model<a class="headerlink" href="#energy-input-to-financial-model" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Financial model needs timeseries power production (kWAC)</p></li>
+<li><p>SAM calculates for annual degradation, set system_use_lifetime_output to 0 for single year of results</p></li>
+<li><p>system_use_lifetime_output = 0 for AC degradation, = 1 for DC degradation (multi-year time series)</p></li>
+<li><p>Set annual degradation as a flat %/yr or annual schedule</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">so_model</span><span class="o">.</span><span class="n">SystemOutput</span><span class="o">.</span><span class="n">gen</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">ac</span> <span class="o">/</span> <span class="mi">1000</span> <span class="c1">#kWAC</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">Lifetime</span><span class="o">.</span><span class="n">system_use_lifetime_output</span> <span class="o">=</span> <span class="mi">0</span> 
+<span class="n">so_model</span><span class="o">.</span><span class="n">SystemOutput</span><span class="o">.</span><span class="n">degradation</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">]</span> <span class="c1">#%/yr</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">FinancialParameters</span><span class="o">.</span><span class="n">system_capacity</span> <span class="o">=</span> <span class="mf">1153.53</span> <span class="c1">#DC capacity, needed for O&amp;M scaling</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="costs">
+<h2>Costs<a class="headerlink" href="#costs" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>SAM has various cost categories used to calculate total capex, opex</p></li>
+<li><p>Only total capex is passed to financial model</p></li>
+<li><p>opex categories ( / kW/yr, <span class="math notranslate nohighlight">\(/yr, \)</span>/kWh/yr) are passed to financial model</p></li>
+</ul>
+<p><img alt="capex.png" src="attachment:1f105896-7daf-4f0c-880d-7adc729a9e52.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Modify cost values</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">SystemCosts</span><span class="o">.</span><span class="n">total_installed_cost</span> <span class="o">=</span> <span class="mi">1350000</span> <span class="c1">#$ (Capex)</span>
+<span class="c1">#Capacity based OM - can be single value or annual schedule, enter as an array of size 1 for fixed input</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">SystemCosts</span><span class="o">.</span><span class="n">om_capacity</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="c1">#$/kW/yr (Opex)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">so_model</span><span class="o">.</span><span class="n">SystemCosts</span><span class="o">.</span><span class="n">om_fixed</span><span class="p">)</span> <span class="c1">#Show that fixed O&amp;M costs are $0, only capacity based OM in this example</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0,)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="revenue">
+<h2>Revenue<a class="headerlink" href="#revenue" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>ppa_soln_mode: 2 different solution modes</p>
+<ol class="arabic simple">
+<li><p>Specify IRR target: PPA price is unknown, iteratively solve for PPA price that gives desired IRR target in target year</p></li>
+<li><p>Specify PPA price: PPA price is known, is used to calculate IRR of project</p></li>
+</ol>
+</li>
+</ul>
+<p><img alt="ppa_revenue.png" src="attachment:abd4d492-7481-4e86-985c-ce1f7f5c64a3.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Modify revenue, PPA</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">Revenue</span><span class="o">.</span><span class="n">ppa_soln_mode</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#Specify PPA Price</span>
+<span class="c1">#PPA price can be single value, annual schedule</span>
+<span class="c1">#Can also add an escalation rate, inflation does not apply</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">Revenue</span><span class="o">.</span><span class="n">ppa_price_input</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.055</span><span class="p">]</span> <span class="c1">#5.5 cents/kWh</span>
+
+<span class="c1">#Alternate - Specify IRR target</span>
+<span class="c1">#so_model.Revenue.ppa_soln_mode = 0 #Specify IRR target</span>
+<span class="c1"># so_model.Revenue.flip_target_percent = 11 #%</span>
+<span class="c1"># so_model.Revenue.flip_target_year = 20</span>
+<span class="c1"># so_model.Revenue.ppa_escalation = 1 #%/yr</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="financing">
+<h2>Financing<a class="headerlink" href="#financing" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Project term debt</p></li>
+<li><p>Inflation rate</p></li>
+<li><p>Analysis period (period of performance)</p></li>
+<li><p>Construction financing</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">so_model</span><span class="o">.</span><span class="n">FinancialParameters</span><span class="o">.</span><span class="n">inflation_rate</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="c1">#%/yr</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">FinancialParameters</span><span class="o">.</span><span class="n">term_int_rate</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1">#%, annual interest rate</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">FinancialParameters</span><span class="o">.</span><span class="n">analysis_period</span> <span class="o">=</span> <span class="mi">25</span> <span class="c1">#yrs, analysis period</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">FinancialParameters</span><span class="o">.</span><span class="n">construction_financing_cost</span> <span class="o">=</span> <span class="mf">35244.49</span> <span class="c1">#$, total construction financing cost</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">FinancialParameters</span><span class="o">.</span><span class="n">real_discount_rate</span> <span class="o">=</span> <span class="mf">6.4</span> <span class="c1">#%/yr</span>
+<span class="c1">#Construction financing cost linked to total installed cost, any changes to total installed cost should include updates to any construction financing costs</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="incentives">
+<h2>Incentives<a class="headerlink" href="#incentives" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Investment Tax Credit</p></li>
+<li><p>Production Tax Credit</p></li>
+<li><p>Other investment based incentives (IBI), capacity based incentives (CBI), production based incentives (PBI)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Set investment tax credit</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">TaxCreditIncentives</span><span class="o">.</span><span class="n">itc_fed_percent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#%</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">TaxCreditIncentives</span><span class="o">.</span><span class="n">ptc_fed_amount</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0275</span><span class="p">]</span> <span class="c1">#$/kWh</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">TaxCreditIncentives</span><span class="o">.</span><span class="n">ptc_fed_term</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1">#years</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">TaxCreditIncentives</span><span class="o">.</span><span class="n">ptc_fed_escal</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="c1">#%/yr</span>
+<span class="n">so_model</span><span class="o">.</span><span class="n">PaymentIncentives</span><span class="o">.</span><span class="n">ibi_fed_amount</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#$ Federal investment based incentives</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Annual cashflows</p></li>
+<li><p>Net Present Value</p></li>
+<li><p>Internal Rate of Return</p></li>
+<li><p>Levelized Cost of Energy</p></li>
+<li><p>Other metrics and annual cashflow information</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">so_model</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span> <span class="c1">#Run model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Net Present Value: &quot;</span><span class="p">,</span> <span class="n">so_model</span><span class="o">.</span><span class="n">Outputs</span><span class="o">.</span><span class="n">project_return_aftertax_npv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Internal Rate of Return: &quot;</span><span class="p">,</span> <span class="n">so_model</span><span class="o">.</span><span class="n">Outputs</span><span class="o">.</span><span class="n">flip_actual_irr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Levelized cost of energy (nominal): &quot;</span><span class="p">,</span> <span class="n">so_model</span><span class="o">.</span><span class="n">Outputs</span><span class="o">.</span><span class="n">lcoe_real</span><span class="p">,</span> <span class="s2">&quot; cents/kWh&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">so_model</span><span class="o">.</span><span class="n">FinancialParameters</span><span class="o">.</span><span class="n">analysis_period</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">),</span><span class="n">so_model</span><span class="o">.</span><span class="n">Outputs</span><span class="o">.</span><span class="n">cf_project_return_aftertax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Dollars ($)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Project After-tax Cash Flow&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Net Present Value:  -20558.617404061835
+Internal Rate of Return:  7.176400789734087
+Levelized cost of energy (nominal):  4.83350644904887  cents/kWh
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Project After-tax Cash Flow&#39;)
+</pre></div>
+</div>
+<img alt="_images/894d3e9fa29bc1e97f66bac7153a352456fb11071e28de26e6298858b24c8c38.png" src="_images/894d3e9fa29bc1e97f66bac7153a352456fb11071e28de26e6298858b24c8c38.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PV-Tutorials/2024_PVSC",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-pvlib-modelchain-pass-power-and-energy-results-to-sam-financial-models-for-technoeconomic-analysis">Run pvlib modelchain, pass power and energy results to SAM financial models for technoeconomic analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-pvlib">1. Setup pvlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-kw-kwh-results-from-pvlib-modelchain">2. Generate kW, kWh results from pvlib modelchain</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-pysam-relevant-financial-parameters">3. Setup PySAM, relevant financial parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-financial-model">4. Run financial model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-project-cashflows-project-success-metrics">5. Analyze project cashflows, project success metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pvlib-modelchain">PVLib ModelChain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sam-ppa-financial-models">SAM PPA Financial Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-input-to-financial-model">Energy input to Financial Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#costs">Costs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revenue">Revenue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#financing">Financing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incentives">Incentives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Silvana Ovaitt, Mark Mikofski
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

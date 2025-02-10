@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "C:\ProgramData\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\ProgramData\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ProgramData\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ProgramData\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\ProgramData\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\ProgramData\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\ProgramData\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# flatten the meshgrid to allow single diode to broadcast the output
+curve_info = pvlib.pvsystem.singlediode(
+    photocurrent=IL.flatten(),
+    saturation_current=I0.flatten(),
+    resistance_series=Rs,
+    resistance_shunt=Rsh.flatten(),
+    nNsVth=nNsVth.flatten(),
+    ivcurve_pnts=101,
+    method='lambertw')
+# display the max power points
+curve_info['p_mp']
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[9], line 2[0m
+[0;32m      1[0m [38;5;66;03m# flatten the meshgrid to allow single diode to broadcast the output[39;00m
+[1;32m----> 2[0m curve_info [38;5;241m=[39m pvlib[38;5;241m.[39mpvsystem[38;5;241m.[39msinglediode(
+[0;32m      3[0m     photocurrent[38;5;241m=[39mIL[38;5;241m.[39mflatten(),
+[0;32m      4[0m     saturation_current[38;5;241m=[39mI0[38;5;241m.[39mflatten(),
+[0;32m      5[0m     resistance_series[38;5;241m=[39mRs,
+[0;32m      6[0m     resistance_shunt[38;5;241m=[39mRsh[38;5;241m.[39mflatten(),
+[0;32m      7[0m     nNsVth[38;5;241m=[39mnNsVth[38;5;241m.[39mflatten(),
+[0;32m      8[0m     ivcurve_pnts[38;5;241m=[39m[38;5;241m101[39m,
+[0;32m      9[0m     method[38;5;241m=[39m[38;5;124m'[39m[38;5;124mlambertw[39m[38;5;124m'[39m)
+[0;32m     10[0m [38;5;66;03m# display the max power points[39;00m
+[0;32m     11[0m curve_info[[38;5;124m'[39m[38;5;124mp_mp[39m[38;5;124m'[39m]
+
+[1;31mTypeError[0m: singlediode() got an unexpected keyword argument 'ivcurve_pnts'
+
