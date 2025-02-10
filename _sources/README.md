@@ -1,7 +1,7 @@
 ![tutorialpromo](images/tutorial_banner.PNG)
 
-# 2024 PVSC Python Tutorial
-Welcome! The goal of this tutorial is to introduce attendees to open-source modeling of PV systems and their production.
+# 2025 Solar PV and PVlib Tutorial
+Welcome! The goal of this tutorial is to introduce studnets from ECE 484/584 Photovoltaics course to open-source modeling of PV systems and their production.
 The tutorial is divided into 3 sections:
 
 ## Section 1: 1.25 hr
@@ -9,15 +9,15 @@ This section will introduce the tutorial facilitators, the Jupyter and Google-Co
 The working example will have you use an APIs to download weather data, and use this to model sun position and hten irradiance at surface of a module (POA). 
 We will wrap up with modeling module's temperature.
 This is covered by tutorials 0 - 2.
-* [**Tutorial 0**: Overview](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%200%20-%20Overview.ipynb)
-* [**Tutorial 1**: TMY Weather Data](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%201%20-%20TMY%20Weather%20Data.ipynb)
-* [**Tutorial 2**: POA Irradiance and Module Temperature](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.ipynb)
+* [**Tutorial 0**: Overview](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%200%20-%20Overview.ipynb)
+* [**Tutorial 1**: TMY Weather Data](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%201%20-%20TMY%20Weather%20Data.ipynb)
+* [**Tutorial 2**: POA Irradiance and Module Temperature](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.ipynb)
 
 ## Section 2: 1 hr
 This will be a problem based learning, where you will calculate a pv module power output by taking code from section 1, and adding new code from the documentation provided.
 This section will be in small teams created during the session based on skill level. Facilitators will roam around supporting.
 This is covered by tutorial PBL 1.
-* [**Tutorial PBL - 1**: Model power output of a module](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/PBL_Case%201.ipynb)
+* [**Tutorial PBL - 1**: Model power output of a module](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/PBL_Case%201.ipynb)
 
 ## Section 3: 0.5 hrs
 We will go over other open-source tools, and examples available in this tutorial for you to peruse afterwards.
@@ -30,12 +30,12 @@ We hope that at the end of this tutorial you will
 -Have a clearer understanding of what pvlib does, and what other open source tools are there for you to use.
 
 ## Appendix Tutorials:
-* [**Tutorial A**: Model output power from a single module](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20A%20-%20Model%20a%20Module's%20Performance.ipynb)
+* [**Tutorial A**: Model output power from a single module](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%20A%20-%20Model%20a%20Module's%20Performance.ipynb)
 * [**Tutorial B**: Combine modules to form strings, calculate inverter efficiency
-  and total array output](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20B%20-%20Array%20Power.ipynb)
-* [**Tutorial C**: Single diode model ](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20C%20-%20Single%20Diode%20Model.ipynb)
-* [**Tutorial D**: Open-source tool: pvfree](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20D%20-%20pvfree.ipynb)
-* [**Tutorial E**: Using the powerful due-diligence software SAM via pySAM](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20E%20-%20PySAM%20Financial%20Model.ipynb)
+  and total array output](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%20B%20-%20Array%20Power.ipynb)
+* [**Tutorial C**: Single diode model ](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%20C%20-%20Single%20Diode%20Model.ipynb)
+* [**Tutorial D**: Open-source tool: pvfree](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%20D%20-%20pvfree.ipynb)
+* [**Tutorial E**: Using the powerful due-diligence software SAM via pySAM](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%20E%20-%20PySAM%20Financial%20Model.ipynb)
 
 * **Tutorials Appendices**: More tutorials on a variety of fun topics
 
@@ -56,25 +56,25 @@ use [Google Colaboratory](https://colab.research.google.com/).
 To run these tutorials in [Google Colaboratory](https://colab.research.google.com/)
 you can click the button below:
 
-<a target="_blank" href="https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%200%20-%20Overview.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%200%20-%20Overview.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
 You can also select Colaboratory from the launch icon at the top of each tutorial
-in the [Jupyter book](https://pvsc-tutorials.github.io/2024_PVSC/index.html).
+in the [Jupyter book](https://pvsc-tutorials.github.io/2025_pvlib_UNM/index.html).
 
 #### Installing Requirements
 When using Google Colaboratory, you must uncomment the first cell that installs
 the tutorial requirements.
 
-    !pip install -r https://raw.githubusercontent.com/PVSC-Tutorials/2024_PVSC/main/requirements.txt
+    !pip install -r https://raw.githubusercontent.com/PVSC-Tutorials/2025_pvlib_UNM/main/requirements.txt
 
 ### Jupyter Books
 
 The full tutorial is hosted as a [Jupyter book](https://jupyterbook.org/intro.html).
 This book has navigation, search, and can be used to launch each book in Colaboratory.
 
-[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](<https://PV-Tutorials.github.io/2024_PVSC/index.html>)
+[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](<https://PV-Tutorials.github.io/2025_pvlib_UNM/index.html>)
 
 ### My Binder
 
@@ -82,7 +82,7 @@ The tutorials will remain available on GitHub, and you can run
 the tutorial anytime in [Binder](https://mybinder.org) by clicking the
 following link:
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2024_PVSC/main)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2025_pvlib_UNM/main)
 
 ### Locally
 
@@ -95,7 +95,7 @@ steps:
 1. Clone the repository:
 
    ```
-   git clone https://github.com/PV-Tutorials/2024_PVSC.git
+   git clone https://github.com/PV-Tutorials/2025_pvlib_UNM.git
    ```
 
 1. Create the environment and install the requirements. The repository includes
@@ -113,7 +113,7 @@ steps:
    jupyter notebook
    ```
 
-1. Use the file explorer in Jupyter lab to browse to `2024_PVSC`
+1. Use the file explorer in Jupyter lab to browse to `2025_pvlib_UNM`
    and start the first Tutorial.
 
 
