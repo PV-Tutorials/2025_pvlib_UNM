@@ -4,8 +4,8 @@
 Welcome! The goal of this tutorial is to introduce studnets from ECE 484/584 Photovoltaics course to open-source modeling of PV systems and their production.
 The tutorial is divided into 3 sections:
 
-## Section 1: 1.25 hr
-This section will introduce the tutorial facilitators, the Jupyter and Google-Collab platform, and python. Then we will proceed to a working example.
+## Section 1: 1 hr
+This section will introduce the tutorial facilitator, the Jupyter and Google-Collab platform, and python. Then we will proceed to a working example.
 The working example will have you use an APIs to download weather data, and use this to model sun position and hten irradiance at surface of a module (POA). 
 We will wrap up with modeling module's temperature.
 This is covered by tutorials 0 - 2.
@@ -14,13 +14,10 @@ This is covered by tutorials 0 - 2.
 * [**Tutorial 2**: POA Irradiance and Module Temperature](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.ipynb)
 
 ## Section 2: 1 hr
-This will be a problem based learning, where you will calculate a pv module power output by taking code from section 1, and adding new code from the documentation provided.
-This section will be in small teams created during the session based on skill level. Facilitators will roam around supporting.
+This will be a problem based learning, where you will calculate either a) a pv module power output, or b) Comparison of weather data to clear-sky data by taking code from section 1, and adding new code from the documentation provided.
+This section will be in small teams created during the session based on skill level. Facilitator will roam around supporting.
 This is covered by tutorial PBL 1.
 * [**Tutorial PBL - 1**: Model power output of a module](https://colab.research.google.com/github/PV-Tutorials/2025_pvlib_UNM/blob/main/PBL_Case%201.ipynb)
-
-## Section 3: 0.5 hrs
-We will go over other open-source tools, and examples available in this tutorial for you to peruse afterwards.
 
 We hope that at the end of this tutorial you will
 -Have a basic understanding of python, how to run it in the online platform.
@@ -39,7 +36,7 @@ We hope that at the end of this tutorial you will
 
 * **Tutorials Appendices**: More tutorials on a variety of fun topics
 
-## What you will need for the tutorial during the live session (June 9th) 
+## What you will need for the tutorial during the live session (February 10 and 12, 2025) 
 
 During this tutorials, we hope you get to play with the code. A laptop is ideal, but we have had students doing them through their phones or tablets, or joining in with a peer. 
 You will NOT have to install anything on your computer if you don't want, as we will be running the tutorial in Google Collab. However, you WILL need to be logged-in to a google account to run the tutorials online.
